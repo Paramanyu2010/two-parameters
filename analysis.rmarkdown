@@ -51,3 +51,4 @@ tidy(fit_height, conf.int = TRUE) |>
     caption = "Estimates and 95% Confidence Intervals for Parameters\nSource: NHANES 2009–2011"
   )
 ```
+
