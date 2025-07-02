@@ -12,6 +12,7 @@ library(tidyverse)
 library(tidymodels)
 library(primer.data)
 library(broom)
+library(marginaleffects)
 ```
 
 ```{r}
@@ -50,4 +51,33 @@ tidy(fit_height, conf.int = TRUE) |>
   kable(
     caption = "Estimates and 95% Confidence Intervals for Parameters\nSource: NHANES 2009–2011"
   )
+```
+
+
+```{r}
+plot_predictions(fit_height, 
+                 condition = "sex",
+                 draw = FALSE) |> 
+  ggplot(aes(x = sex, 
+             y = estimate, 
+             color = sex)) +
+  geom_pointrange(aes(ymin = conf.low, 
+                      ymax = conf.high),
+                  size = 1.2, 
+                  linewidth = 1.5,
+                  fatten = 3) +
+  scale_color_manual(values = c("Female" = "#E74C3C", "Male" = "#3498DB")) +
+  labs(
+    title = "Forecast Height for USMC Recruits",
+    subtitle = "Men are about 16 (cm) taller than women",
+    x = NULL,
+    y = "Height (cm)",
+    color = "Sex",
+    caption = "Source: NHANES 2009–2011"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none"
+  )
+
 ```
